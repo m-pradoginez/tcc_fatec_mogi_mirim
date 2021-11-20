@@ -38,7 +38,7 @@ include "../conexao.php";
                                         <th scope="row"><?php echo $count; ?></th>
                                         <td><?php echo $row["categoria"]; ?></td>
                                         <td><?php echo $row["tempo_em_minutos"]; ?></td>
-                                        <td><a href="adc_edit_questoes.php?id=<?php echo $row['id']; ?>">Selecionar</a></td>
+                                        <td><a href="adc_edit_questoes.php?id=<?php echo $row["id"]; ?>">Selecionar</a></td>
                                     </tr>
                                 <?php
                                 }

@@ -78,22 +78,18 @@ while ($row = mysqli_fetch_array($resultado)) {
                             <th>Apagar</th>
                         </tr>
                         <?php
-                        $resultado = mysqli_query($con, "select * from questoes where categoria='$categoria_exame' order by numero_questao asc") or die(mysqli_error($con));
+                        $resultado = mysqli_query($con, "select * from questoes where categoria='$categoria_exame' order by numero_questao asc");
                         while ($row = mysqli_fetch_array($resultado)) {
                             echo "<tr>";
-                            echo "<td>";
-                            echo $row["numero_questao"];
-                            echo "</td>";
-                            echo "<td>";
-                            echo $row["questao"];
-                            echo "</td>";
+                            echo "<td>"; echo $row["numero_questao"]; echo "</td>";
+                            echo "<td>"; echo $row["questao"]; echo "</td>";
 
                             // Imagem 1
                             echo "<td>";
-                            if (strpos($row["opcao1"], 'opcao_imagem/') !== false) {
-                        ?>
-                                <img src="<?php echo $row["opcao1"]; ?>" height="50" width="50">
-                            <?php
+                            if (strpos($row["opcao1"], 'opcao_imagens/') !== false) {
+                                ?>
+                                    <img src="<?php echo $row["opcao1"]; ?>" height="50" width="50">
+                                <?php
                             } else {
                                 echo $row["opcao1"];
                             }
@@ -101,7 +97,7 @@ while ($row = mysqli_fetch_array($resultado)) {
 
                             // Imagem 2
                             echo "<td>";
-                            if (strpos($row["opcao2"], 'opcao_imagem/') !== false) {
+                            if (strpos($row["opcao2"], 'opcao_imagens/') !== false) {
                             ?>
                                 <img src="<?php echo $row["opcao2"]; ?>" height="50" width="50">
                             <?php
@@ -111,7 +107,7 @@ while ($row = mysqli_fetch_array($resultado)) {
                             echo "</td>";
                             // Imagem 3
                             echo "<td>";
-                            if (strpos($row["opcao3"], 'opcao_imagem/') !== false) {
+                            if (strpos($row["opcao3"], 'opcao_imagens/') !== false) {
                             ?>
                                 <img src="<?php echo $row["opcao3"]; ?>" height="50" width="50">
                             <?php
@@ -122,7 +118,7 @@ while ($row = mysqli_fetch_array($resultado)) {
 
                             // Imagem 4
                             echo "<td>";
-                            if (strpos($row["opcao4"], 'opcao_imagem/') !== false) {
+                            if (strpos($row["opcao4"], 'opcao_imagens/') !== false) {
                             ?>
                                 <img src="<?php echo $row["opcao4"]; ?>" height="50" width="50">
                             <?php
@@ -132,21 +128,21 @@ while ($row = mysqli_fetch_array($resultado)) {
                             echo "</td>";
                             // Editar
                             echo "<td>";
-                            if (strpos($row["opcao4"], 'opcao_imagem/') !== false) {
+                            if (strpos($row["opcao4"], 'opcao_imagens/') !== false) {
                             ?>
-                                <a href="editar_opcao_imagem.php?id=<?php echo $row["id"]; ?>">Editar
+                                <a href="editar_opcao_imagem.php?id=<?php echo $row["id"]; ?>&id1=<?php echo $id; ?>">Editar
                                 </a>
                             <?php
                             } else {
                             ?>
-                                <a href="editar_opcao.php?id=<?php echo $row["id"]; ?>">Editar</a>
+                                <a href="editar_opcao.php?id=<?php echo $row["id"]; ?>&id1=<?php echo $id; ?>">Editar</a>
                             <?php
                             }
                             echo "</td>";
                             // Apagar
                             echo "<td>";
                             ?>
-                            <a href="deletar_opcao.php?id=<?php echo $row["id"]; ?>">Apagar</a>
+                            <a href="deletar_opcao.php?id=<?php echo $row["id"]; ?>&id1=<?php echo $id; ?>">Apagar</a>
                         <?php
                             echo "</td>";
                             echo "</tr>";
@@ -178,7 +174,7 @@ if (isset($_POST["enviar"])) {
     mysqli_query($con, "insert into questoes values (NULL,'$loop','$_POST[questao]','$_POST[opcao1]','$_POST[opcao2]','$_POST[opcao3]','$_POST[opcao4]','$_POST[resposta]','$categoria_exame')") or die(mysqli_error($con));
 ?>
     <script type="text/javascript">
-        alert("Questão adicionada com sucesso ")
+        alert("Questão adicionada com sucesso📝✍️🤩")
         window.location.href = window.location.href;
     </script>
 <?php
@@ -188,8 +184,7 @@ if (isset($_POST["enviar"])) {
 if (isset($_POST["enviar2"])) {
     $loop = 0;
     $count = 0;
-    $resultado = mysqli_query($con, "select * from questoes where categoria='$categoria_exam
-   e' order by id asc") or die(mysqli_error($con));
+    $resultado = mysqli_query($con, "select * from questoes where categoria='$categoria_exame' order by id asc") or die(mysqli_error($con));
     $count = mysqli_num_rows($resultado);
     if ($count == 0) {
         # code...
@@ -201,30 +196,36 @@ if (isset($_POST["enviar2"])) {
     }
     $loop = $loop + 1;
     $tm = md5(time());
+
     $fnm1 = $_FILES["fopcao1"]["name"];
-    $dst1 = "./opcao_imagem/" . $tm . $fnm1;
-    $dst_db1 = "opcao_imagem/" . $tm . $fnm1;
+    $dst1 = "./opcao_imagens/" . $tm . $fnm1;
+    $dst_db1 = "opcao_imagens/" . $tm . $fnm1;
     move_uploaded_file($_FILES["fopcao1"]["tmp_name"], $dst1);
+
     $fnm2 = $_FILES["fopcao2"]["name"];
-    $dst2 = "./opcao_imagem/" . $tm . $fnm2;
-    $dst_db2 = "opcao_imagem/" . $tm . $fnm2;
+    $dst2 = "./opcao_imagens/" . $tm . $fnm2;
+    $dst_db2 = "opcao_imagens/" . $tm . $fnm2;
     move_uploaded_file($_FILES["fopcao2"]["tmp_name"], $dst2);
+
     $fnm3 = $_FILES["fopcao3"]["name"];
-    $dst3 = "./opcao_imagem/" . $tm . $fnm3;
-    $dst_db3 = "opcao_imagem/" . $tm . $fnm3;
+    $dst3 = "./opcao_imagens/" . $tm . $fnm3;
+    $dst_db3 = "opcao_imagens/" . $tm . $fnm3;
     move_uploaded_file($_FILES["fopcao3"]["tmp_name"], $dst3);
+
     $fnm4 = $_FILES["fopcao4"]["name"];
-    $dst4 = "./opcao_imagem/" . $tm . $fnm4;
-    $dst_db4 = "opcao_imagem/" . $tm . $fnm4;
+    $dst4 = "./opcao_imagens/" . $tm . $fnm4;
+    $dst_db4 = "opcao_imagens/" . $tm . $fnm4;
     move_uploaded_file($_FILES["fopcao4"]["tmp_name"], $dst4);
+
     $fnm5 = $_FILES["fresposta"]["name"];
-    $dst5 = "./opcao_imagem/" . $tm . $fnm5;
-    $dst_db5 = "opcao_imagem/" . $tm . $fnm5;
+    $dst5 = "./opcao_imagens/" . $tm . $fnm5;
+    $dst_db5 = "opcao_imagens/" . $tm . $fnm5;
     move_uploaded_file($_FILES["fresposta"]["tmp_name"], $dst5);
+
     mysqli_query($con, "insert into questoes values (NULL,'$loop','$_POST[fquestao]','$dst1','$dst2','$dst3','$dst4','$dst5','$categoria_exame')") or die(mysqli_error($con));
 ?>
     <script type="text/javascript">
-        alert("Questão adicionada com sucesso ")
+        alert("Questão adicionada com sucesso📝✍️🤩")
         window.location.href = window.location.href;
     </script>
 <?php
