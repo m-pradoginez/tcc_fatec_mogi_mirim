@@ -9,17 +9,17 @@
             header('Location:home.php');
         }
         ?>
-		<title>Entrar | TCC Gamificação Fatec Mogi Mirim</title>
+		<title>Admin | Simple Online Quiz System</title>
 	</head>
 
 	<body id='login-body' class="bg-light">
 
         <div class="card col-md-6 offset-md-3 text-center bg-primary mb-4">
-            <h3 class="he3-responsive text-white">TCC Gamificação Fatec Mogi Mirim</h3>
+            <h3 class="he3-responsive text-white">Simple Online Quiz System</h3>
         </div>
 		<div class="card col-md-4 offset-md-4 mt-4">
                 <div class="card-header-edge text-white">
-                    <strong>Acessar a Plataforma</strong>
+                    <strong>Login</strong>
                 </div>
             <div class="card-body">
                      <form id="login-frm">
@@ -28,12 +28,12 @@
                             <input type="username" name="username" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Senha</label>
                             <input type="password" name="password" class="form-control">
                         </div> 
                         <div class="form-group text-right">
-                            <button class="btn btn-primary btn-block" name="submit">Entrar</button>
-                        </div>           
+                            <button class="btn btn-primary btn-block" name="submit">Login</button>
+                        </div>
+                        
                     </form>
             </div>
         </div>
@@ -48,7 +48,7 @@
                     $('#login-frm button').html('Please wait...')
 
                     $.ajax({
-                        url:'./login_auth.php',
+                        url:'./login_auth.php?type=1',
                         method:'POST',
                         data:$(this).serialize(),
                         error:err=>{
@@ -61,7 +61,7 @@
                             if(resp == 1){
                                 location.replace('home.php')
                             }else{
-                                alert("Nome de Usuário ou Senha Errados.")
+                                alert("Incorrect username or password.")
                                 $('#login-frm button').removeAttr('disable')
                                 $('#login-frm button').html('Login')
                             }

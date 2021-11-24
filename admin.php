@@ -9,7 +9,7 @@
             header('Location:home.php');
         }
         ?>
-		<title>Entrar | TCC Gamificação Fatec Mogi Mirim</title>
+		<title>Administrador | TCC Gamificação Fatec Mogi Mirim</title>
 	</head>
 
 	<body id='login-body' class="bg-light">
@@ -19,12 +19,12 @@
         </div>
 		<div class="card col-md-4 offset-md-4 mt-4">
                 <div class="card-header-edge text-white">
-                    <strong>Acessar a Plataforma</strong>
+                    <strong>Acesso Administrador</strong>
                 </div>
             <div class="card-body">
                      <form id="login-frm">
                         <div class="form-group">
-                            <label>Username</label>
+                            <label>Nome de Usuário</label>
                             <input type="username" name="username" class="form-control">
                         </div>
                         <div class="form-group">
@@ -33,7 +33,7 @@
                         </div> 
                         <div class="form-group text-right">
                             <button class="btn btn-primary btn-block" name="submit">Entrar</button>
-                        </div>           
+                        </div>  
                     </form>
             </div>
         </div>
@@ -48,7 +48,7 @@
                     $('#login-frm button').html('Please wait...')
 
                     $.ajax({
-                        url:'./login_auth.php',
+                        url:'./login_auth.php?type=1',
                         method:'POST',
                         data:$(this).serialize(),
                         error:err=>{
@@ -61,7 +61,7 @@
                             if(resp == 1){
                                 location.replace('home.php')
                             }else{
-                                alert("Nome de Usuário ou Senha Errados.")
+                                alert("Incorrect username or password.")
                                 $('#login-frm button').removeAttr('disable')
                                 $('#login-frm button').html('Login')
                             }
